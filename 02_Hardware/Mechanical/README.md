@@ -1,1 +1,1 @@
-(Archivos editables: Kicad,Altium, Eagle)
+(Archivos STL, DXF y CAD de carcasas)
