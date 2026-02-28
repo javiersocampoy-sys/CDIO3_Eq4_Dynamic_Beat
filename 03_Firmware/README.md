@@ -1,4 +1,5 @@
  Firmware Dynamic Beat 
+ 
 Este repositorio contiene el código fuente en C++ para el sistema de control del dispositivo de fisioterapia. El firmware gestiona la lectura de sensores ultrasónicos, el control de actuadores y la interfaz de usuario, operando bajo una arquitectura de Máquina de Estados Finitos (FSM) para garantizar la precisión en las rutinas de terapia.
 
  Entorno de Desarrollo
