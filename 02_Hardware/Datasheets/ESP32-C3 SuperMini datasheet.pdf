@@ -1,4 +1,4 @@
-.git add 02_Hardware/Datasheets/esp32-c3_datasheet_en.pdf
+git add 02_Hardware/Datasheets/esp32-c3_datasheet_en.pdf
 git commit -m "Add ESP32-C3 datasheet"
 git push
 
