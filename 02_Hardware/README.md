@@ -47,3 +47,61 @@ Esquemáticos de conexión.
 Diseño de PCBs (en formatos compatibles con KiCad, Altium o Eagle según corresponda).
 
 Diagramas de bloques del sistema de alimentación.
+
+graph TD
+    subgraph Alimentacion [Sistema de Energía]
+        BAT1[Batería Li-ion 3.7V] --- BAT2[Batería Li-ion 3.7V]
+        SERIE[Conexión en Serie 7.4V] --> REG[Regulador LM2596]
+        REG --> VOUT[Salida Estable 5V]
+    end
+
+graph TD
+    subgraph Nodo_Periferico [Estación de Interacción]
+        VOUT --> MCU[ESP32-C3 Supermini]
+        MCU -- Trigger/Echo --> HC[Sensor Ultrasonido HC-SR04]
+        MCU -- I2C --> OLED[Pantalla OLED]
+    end
+graph TD
+    subgraph Nodo_Periferico [Estación de Interacción]
+        VOUT --> MCU[ESP32-C3 Supermini]
+        MCU -- Trigger/Echo --> HC[Sensor Ultrasonido HC-SR04]
+        MCU -- I2C --> OLED[Pantalla OLED]
+    end
+
+  graph TD
+    %% Sección de Alimentación
+    subgraph Alimentacion [Gestión de Energía por Nodo]
+        BAT[2x Baterías Li-ion 3.7V] -- "7.4V (Serie)" --> REG[Regulador LM2596]
+        REG -- "5V Estables" --> MCU_P[ESP32-C3 Supermini]
+    end
+
+ Diagrama de Arquitectura - Dynamic Beat
+
+A continuación, se presenta el diagrama detallado del sistema, mostrando el flujo de potencia (basado en la evidencia de cableado realizada) y la comunicación de datos:
+
+```mermaid
+graph TD
+    %% Nivel 1: Energía
+    subgraph Alimentacion [1. Suministro de Energía]
+        BAT[2x Baterías 3.7V] -- "7.4V" --> REG[Regulador LM2596]
+        REG -- "5V" --> MCU_P[ESP32-C3 Supermini]
+    end
+
+    %% Nivel 2: Acción/Sensores
+    subgraph Perifericos [2. Estaciones de Interacción]
+        MCU_P -- "Pines Digitales" --> HC[Sensor Ultrasonido HC-SR04]
+    end
+
+    %% Nivel 3: Comunicación Inalámbrica
+    subgraph Wireless [3. Transporte de Datos]
+        MCU_P -. "Protocolo ESP-NOW" .-> MASTER[Nodo Maestro: ESP32 Wroom]
+    end
+
+    %% Nivel 4: Procesamiento Final
+    subgraph Interfaz [4. Salida al Videojuego]
+        MASTER -- "Cable USB" --> PC[Computador: Dynamic Beat]
+    end
+
+    %% Estilos básicos
+    style Alimentacion fill:#fdf,stroke:#333
+    style Interfaz fill:#ddf,stroke:#333
