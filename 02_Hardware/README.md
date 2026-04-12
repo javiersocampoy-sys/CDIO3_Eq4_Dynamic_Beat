@@ -46,34 +46,6 @@ Esquemáticos de conexión.
 
 Diseño de PCBs (en formatos compatibles con KiCad, Altium o Eagle según corresponda).
 
-Diagramas de bloques del sistema de alimentación.
-
-graph TD
-    subgraph Alimentacion [Sistema de Energía]
-        BAT1[Batería Li-ion 3.7V] --- BAT2[Batería Li-ion 3.7V]
-        SERIE[Conexión en Serie 7.4V] --> REG[Regulador LM2596]
-        REG --> VOUT[Salida Estable 5V]
-    end
-
-graph TD
-    subgraph Nodo_Periferico [Estación de Interacción]
-        VOUT --> MCU[ESP32-C3 Supermini]
-        MCU -- Trigger/Echo --> HC[Sensor Ultrasonido HC-SR04]
-        MCU -- I2C --> OLED[Pantalla OLED]
-    end
-graph TD
-    subgraph Nodo_Periferico [Estación de Interacción]
-        VOUT --> MCU[ESP32-C3 Supermini]
-        MCU -- Trigger/Echo --> HC[Sensor Ultrasonido HC-SR04]
-        MCU -- I2C --> OLED[Pantalla OLED]
-    end
-
-  graph TD
-    %% Sección de Alimentación
-    subgraph Alimentacion [Gestión de Energía por Nodo]
-        BAT[2x Baterías Li-ion 3.7V] -- "7.4V (Serie)" --> REG[Regulador LM2596]
-        REG -- "5V Estables" --> MCU_P[ESP32-C3 Supermini]
-    end
 
  Diagrama de Arquitectura - Dynamic Beat
 
