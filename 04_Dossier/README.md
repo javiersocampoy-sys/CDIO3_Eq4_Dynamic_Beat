@@ -1,1 +1,7 @@
-(Manuales finales y validaciones)
+# 04_Dossier: Evidencias de Integración y Calidad Técnica
+
+Este apartado constituye el registro documental y técnico del proyecto **Dynamic Beat**, diseñado para optimizar los procesos de rehabilitación física en la Fundación Covida. El dossier tiene como objetivo principal consolidar las evidencias de implementación y asegurar que cada componente del sistema, tanto en hardware como en software, cumpla con los requerimientos funcionales y no funcionales establecidos en la fase de diseño.
+
+Como parte del proceso de auditoría liderado por la gestión de integración, se documenta la transición tecnológica desde interfaces físicas heredadas hacia sistemas de proximidad de alta precisión. Este dossier incluye un informe detallado de fallos sobre la botonera física original, cuya baja usabilidad y falta de autonomía justificaron la integración del microcontrolador **ESP32** y sensores de ultrasonido **HC-SR04**, garantizando una interacción sin contacto y una respuesta del sistema menor a 1 segundo.
+
+Finalmente, se presentan las pruebas de validación de ingeniería, destacando la estabilidad en la gestión de energía (RF-001) con una tolerancia de ±0.3V y el cumplimiento de los estándares de visualización en Pygame (RNF-002). Cada evidencia aquí registrada actúa como soporte de calidad, asegurando que el prototipo no solo es funcional, sino que es una herramienta de biofeedback fiable y robusta para el entorno clínico.
