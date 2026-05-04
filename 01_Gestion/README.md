@@ -1,9 +1,11 @@
+
 ##  Dashboard del Proyecto
 
 Puede consultar el estado del proyecto, tareas y avances en el siguiente enlace:
 
 🔗 [Ver Dashboard en GitHub Projects](https://docs.google.com/spreadsheets/d/16BMT0KwvYPv9AQtpj7Zw0qbRo2MVD9Crjc564nbe30I/edit?usp=sharing)
 
+ main
 Gestión del Proyecto
 La administración y desarrollo del proyecto Dynamic Beat se fundamenta en una división clara de responsabilidades técnicas y un flujo de trabajo estructurado para garantizar la correcta integración de hardware y software.
 
