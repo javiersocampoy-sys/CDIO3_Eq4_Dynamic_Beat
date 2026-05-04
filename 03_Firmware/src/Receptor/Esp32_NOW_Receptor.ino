@@ -1,47 +1,48 @@
 #include "ESP32_NOW.h"
 #include "WiFi.h"
 #include <vector>
+#include <string.h>
 
 #define CHANNEL 6
+const int ledPin = 2;
 
 typedef struct {
   uint8_t id;
-  float valor;
+  char estado[20];
 } mensaje_t;
 
 mensaje_t mensaje;
 
-/* Clase que representa cada nodo emisor */
+volatile bool obstaculoDetectado = false;
+
 class ReceiverPeer : public ESP_NOW_Peer {
 public:
   ReceiverPeer(const uint8_t *mac_addr)
   : ESP_NOW_Peer(mac_addr, CHANNEL, WIFI_IF_STA, nullptr) {}
 
   bool begin() {
-    return add();   // Solo registrar el peer
+    return add();
   }
 
   void onReceive(const uint8_t *data, size_t len, bool broadcast) override {
-
     memcpy(&mensaje, data, sizeof(mensaje));
 
     Serial.print("Nodo: ");
     Serial.print(mensaje.id);
-    Serial.print(" | Valor: ");
-    Serial.println(mensaje.valor);
+    Serial.print(" | Estado: ");
+    Serial.println(mensaje.estado);
+
+    if (strcmp(mensaje.estado, "mano detectado") == 0) {
+      obstaculoDetectado = true;
+    }
   }
 };
 
-/* Lista de nodos registrados */
 std::vector<ReceiverPeer*> peers;
 
-/* Callback cuando aparece un nuevo peer */
 void register_new_peer(const esp_now_recv_info_t *info, const uint8_t *data, int len, void *arg) {
-
   if (memcmp(info->des_addr, ESP_NOW.BROADCAST_ADDR, 6) == 0) {
-
     ReceiverPeer *newPeer = new ReceiverPeer(info->src_addr);
-
     if (newPeer->begin()) {
       peers.push_back(newPeer);
       Serial.println("Nuevo nodo registrado");
@@ -54,6 +55,9 @@ void register_new_peer(const esp_now_recv_info_t *info, const uint8_t *data, int
 
 void setup() {
   Serial.begin(115200);
+
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
 
   WiFi.mode(WIFI_STA);
   WiFi.setChannel(CHANNEL);
@@ -69,9 +73,14 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("Nodo: ");
-    Serial.print(mensaje.id);
-    Serial.print(" | Valor: ");
-    Serial.println(mensaje.valor);
-    delay(1000);
+  if (obstaculoDetectado) {
+    digitalWrite(ledPin, HIGH);
+    delay(1000); 
+    digitalWrite(ledPin, LOW);
+    
+    obstaculoDetectado = false; 
+    memset(mensaje.estado, 0, sizeof(mensaje.estado)); 
+  }
+  
+  delay(10); 
 }
